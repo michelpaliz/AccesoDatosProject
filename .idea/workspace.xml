@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7b1e27e4-a8ac-4a51-a2ca-1160a40ee8f6" name="Changes" comment="" />
+    <list default="true" id="7b1e27e4-a8ac-4a51-a2ca-1160a40ee8f6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/mini-control-empleados/src/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/mini-control-empleados/src/README.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -69,7 +71,7 @@
       <option name="presentableId" value="Default" />
       <updated>1677259614381</updated>
       <workItem from="1677259615534" duration="48000" />
-      <workItem from="1677259677304" duration="1089000" />
+      <workItem from="1677259677304" duration="1242000" />
     </task>
     <task id="LOCAL-00001" summary="cambios">
       <created>1677261053042</created>
@@ -78,7 +80,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677261053042</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="cambios">
+      <created>1677261234080</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1677261234080</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
