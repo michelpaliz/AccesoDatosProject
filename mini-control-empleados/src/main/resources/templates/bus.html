@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="">
+<head th:replace="layout/layout :: head">
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<body>
+
+<header th:replace="layout/layout :: header"></header>
+
+<div class="py-4 ml-5 mr-5">
+    <form th:action="@{/filtro}">
+        <div class="input-group">
+            <div>
+                <label class="form-label" for="keyword"></label>
+                <input type="search" id="keyword" class="form-control" name="keyword"
+                       th:value="${keyword}" placeholder="Introduce el campo" required/>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Limpiar"  onclick="cleanInputField()">
+            <input type="submit" class="btn btn-secondary" value="Buscar" >
+        </div>
+    </form>
+
+
+    <div class="card bg-light">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>Fecha</th>
+                    <th>Teléfono</th>
+                    <th>Sexo</th>
+                    <th>Salario</th>
+                    <th>Departamento</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="empleado : ${empleados}">
+                    <td th:text="${empleado.id}"></td>
+                    <td th:text="${empleado.nombre}"></td>
+                    <td th:text="${empleado.apellido}"></td>
+                    <td th:text="${empleado.email}"></td>
+                    <td th:text="${empleado.fecha}"></td>
+                    <td th:text="${empleado.telefono}"></td>
+                    <td th:text="${empleado.sexo}"></td>
+                    <td th:text="${empleado.salario}"></td>
+                    <td th:text="${empleado.idDepartamento}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <!--            <nav th:replace="paginator-nav :: paginator"></nav>-->
+        </div>
+    </div>
+
+    <div class="container ">
+        <a class="btn btn-info btn-sm" th:href="@{/message/send}"> Ir al chat </a>
+    </div>
+
+</div>
+
+
+<!--<script type="text/javascript">-->
+<!--    function cleanInputField() {-->
+<!--        window.location='/sinfiltro';-->
+<!--    }-->
+<!--</script>-->
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

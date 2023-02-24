@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<header th:replace="layout/layout :: header"></header>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Spring Boot WebSocket Chat Application</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.js"
+            integrity="sha512-aHuAnb+FZ/yM5zYvdiA8q0sxLdsBQ3PRwO8D/08qsenCLQ2gWsosB43Cn1X8esAz0IpaC7Ns5cAPyKIdJQ0hNw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"
+            integrity="sha512-tL4PIUsPy+Rks1go4kQG8M8/ItpRMvKnbBjQm4d2DQnFwgcBYRRN00QdyQnWSCwNMsoY/MfJY8nHp2CzlNdtZA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <script type="text/javascript">
+        var stompClient = null;
+        var privateStompClient = null;
+
+        var socket = new SockJS('/ws');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            console.log(frame);
+            stompClient.subscribe('/all/messages', function (result) {
+                show(JSON.parse(result.body));
+            });
+        });
+
+        socket = new SockJS('/ws');
+        privateStompClient = Stomp.over(socket);
+        privateStompClient.connect({}, function (frame) {
+            console.log(frame);
+            privateStompClient.subscribe('/user/specific', function (result) {
+                console.log(result.body)
+                show(JSON.parse(result.body));
+            });
+        });
+
+
+        function sendMessage() {
+            var text = document.getElementById('text').value;
+            stompClient.send("/app/application", {},
+                JSON.stringify({'text': text}));
+        }
+
+        function sendPrivateMessage() {
+            var text = document.getElementById('privateText').value;
+            var to = document.getElementById('to').value;
+            stompClient.send("/app/private", {},
+                JSON.stringify({'text': text, 'to': to}));
+        }
+
+        function show(message) {
+            var response = document.getElementById('messages');
+            var p = document.createElement('p');
+            p.innerHTML = "message: " + message.text;
+            response.appendChild(p);
+        }
+    </script>
+</head>
+
+<body>
+<div class="container">
+    <div class="align-items-center" style="margin-top: 5rem">
+        <div>
+            <h4>Usuario: <span th:text="${#authentication.getName()}"></span></h4>
+            <input type="text" id="text" placeholder="Send global message" class="form-control" />
+            <br/>
+            <button class="btn btn-primary"  id="sendMessage" onclick="sendMessage();">Send</button>
+        </div>
+        <br/>
+        <div>
+            <input type="text" id="privateText" placeholder="Private Message" class="form-control" />
+            <br/>
+            <input type="text" id="to" placeholder="To" class="form-control"/>
+            <br/>
+            <button class="btn btn-primary" id="sendPrivateMessage" onclick="sendPrivateMessage();">Send Private</button>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+
+
+        <div class="container" style="background: #adb5bd; border:1px solid black; padding: 2rem; "   >
+            <div class="align-items-center">
+                <div id="messages">
+                    <p>De parte de : <span th:text="${#authentication.getName()}"></span></p>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+</body>
+
+<footer th:replace="layout/layout :: footer"></footer>
+</html>
+

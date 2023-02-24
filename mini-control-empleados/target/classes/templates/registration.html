@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Registration</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<nav th:replace="layout/nav :: nav"></nav>
+
+<!-- create navigation bar ( header) -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}">Registration and
+                Login Module</a>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<!-- Create HTML registration form -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <!-- success message -->
+            <div th:if="${param.success}">
+                <div class="alert alert-info">You've successfully registered
+                    to our awesome app!
+                </div>
+            </div>
+
+            <h1>Registration</h1>
+
+            <form th:action="@{/registration}" method="post" th:object="${usuario}">
+                <div class="form-group">
+                    <label class="control-label" for="firstName"> First Name </label>
+                    <input id="firstName" class="form-control" th:field="${usuario.nombre}"
+                           required autofocus="autofocus"/>
+                </div>
+
+
+                <!--                <div th:switch="${#lists.size(teacher.courses)}">-->
+                <!--                    <span th:case="'0'">NO COURSES YET!</span>-->
+                <!--                    <span th:case="'1'" th:text="${teacher.courses[0]}"></span>-->
+                <!--                    <div th:case="*">-->
+                <!--                        <div th:each="course:${teacher.courses}" th:text="${course}"/>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <div th:switch="${#lists.size(empleados)}">
+                    <p th:case="0">Porfavor anyade un nuevo empleado primero para poder registrarlo como usuario  !</p>
+                    <div th:case="*">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <label>
+                                <select th:field="${usuario.email}" class="form-select">
+                                    <!--                            <option value="">Select Departamento</option>-->
+                                    <option th:each="empleado : ${empleados}" th:value="${empleado.email}"
+                                            th:text="${empleado.email}"></option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--                <div class="form-group">-->
+                <!--                    <label>Email</label>-->
+                <!--                    <label>-->
+                <!--                        <select th:field="${usuario.email}" class="form-select">-->
+                <!--                            &lt;!&ndash;                            <option value="">Select Departamento</option>&ndash;&gt;-->
+                <!--                            <option th:each="empleado : ${empleados}" th:value="${empleado.email}" th:text="${empleado.email}"></option>-->
+                <!--                        </select>-->
+                <!--                    </label>-->
+                <!--                </div>-->
+
+
+                <!--                <div class="form-group">-->
+                <!--                    <label class="control-label" for="email"> Email </label> <input-->
+                <!--                        id="email" class="form-control" th:field="${usuario.email}" required-->
+                <!--                        autofocus="autofocus" />-->
+                <!--                </div>-->
+
+                <div class="form-group">
+                    <label class="control-label" for="password"> Password </label> <input
+                        id="password" class="form-control" type="password"
+                        th:field="${usuario.password}" required autofocus="autofocus"/>
+                </div>
+
+
+                <div class="form-group">
+                    <label>Tipo de usuario</label>
+                    <label>
+                        <select th:field="${usuario.tipo}" class="form-select">
+                            <!--                            <option value="">Select Departamento</option>-->
+                            <option th:each="tipo : ${tipos}" th:value="${tipo}" th:text="${tipo}"></option>
+                        </select>
+                    </label>
+                </div>
+
+                <!--                <div class="form-group">-->
+                <!--                    <label>Empleado</label>-->
+                <!--                    <label>-->
+                <!--                        <select th:field="${usuario.empleado}" class="form-select">-->
+                <!--                            &lt;!&ndash;                            <option value="">Select Departamento</option>&ndash;&gt;-->
+                <!--                            <option th:each="empleado : ${empleados}" th:value="${usuario.empleado}" th:text="${empleado.nombre}"></option>-->
+                <!--                        </select>-->
+                <!--                    </label>-->
+                <!--                </div>-->
+
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Register</button>
+                    <span>Already registered? <a href="/" th:href="@{/login}">Login
+								here</a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
